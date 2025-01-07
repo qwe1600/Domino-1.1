@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>HTML/CSS/JS Editor</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f4f8;
+        }
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+        .toolbar {
+            margin: 0;
+            padding: 10px;
+            background-color: #f8f9fa;
+        }
+        .toolbar button {
+            margin: 5px;
+            padding: 5px;
+            border: 1px solid #ccc;
+            background-color: #fff;
+        }
+        .editor-container {
+            display: table;
+            width: 100%;
+        }
+        .editor {
+            display: table-cell;
+            padding: 10px;
+            border: 1px solid #ccc;
+            vertical-align: top;
+        }
+        textarea {
+            width: 100%;
+            height: 300px;
+            font-family: Courier, monospace;
+            font-size: 12px;
+            border: 1px solid #ddd;
+        }
+        iframe {
+            width: 100%;
+            height: 300px;
+            border: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+<header>HTML, CSS, JS Editor</header>
+
+<div class="toolbar">
+    <button onclick="insertTemplate('html')">HTML Template</button>
+    <button onclick="insertTemplate('css')">CSS Template</button>
+    <button onclick="insertTemplate('js')">JS Template</button>
+    <button onclick="updatePreview()">Update</button>
+</div>
+
+<div class="editor-container">
+    <div class="editor">
+        <h3>HTML</h3>
+        <textarea id="htmlCode"></textarea>
+    </div>
+    <div class="editor">
+        <h3>CSS</h3>
+        <textarea id="cssCode"></textarea>
+    </div>
+    <div class="editor">
+        <h3>JavaScript</h3>
+        <textarea id="jsCode"></textarea>
+    </div>
+</div>
+
+<div class="editor-container">
+    <iframe id="output"></iframe>
+</div>
+
+<footer><img src="Domino.PNG" alt="" width="40px" height="40px" footer { height: 60px; }></footer>
+
+<script>
+    function updatePreview() {
+        var html = document.getElementById('htmlCode').value;
+        var css = document.getElementById('cssCode').value;
+        var js = document.getElementById('jsCode').value;
+
+        var iframe = document.getElementById('output');
+        var doc = iframe.contentDocument || iframe.contentWindow.document;
+        doc.open();
+        doc.write(html + '<style>' + css + '</style>' + '<script>' + js + '<\/script>');
+        doc.close();
+    }
+
+    function insertTemplate(type) {
+        if (type === 'html') {
+            document.getElementById('htmlCode').value = '<h1>Example HTML</h1><p>This is a paragraph.</p>';
+        } else if (type === 'css') {
+            document.getElementById('cssCode').value = 'h1 { color: blue; }';
+        } else if (type === 'js') {
+            document.getElementById('jsCode').value = 'alert("Hello, World!");';
+        }
+        updatePreview();
+    }
+</script>
+</body>
+</html>
